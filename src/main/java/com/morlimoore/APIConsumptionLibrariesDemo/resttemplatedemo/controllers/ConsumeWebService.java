@@ -1,6 +1,6 @@
-package com.morlimoore.resttemplatedemo.controllers;
+package com.morlimoore.APIConsumptionLibrariesDemo.resttemplatedemo.controllers;
 
-import com.morlimoore.resttemplatedemo.models.User;
+import com.morlimoore.APIConsumptionLibrariesDemo.resttemplatedemo.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;

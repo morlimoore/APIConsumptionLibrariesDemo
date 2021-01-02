@@ -1,4 +1,4 @@
-package com.morlimoore.resttemplatedemo;
+package com.morlimoore.APIConsumptionLibrariesDemo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,10 +6,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
-public class ResttemplatedemoApplication {
+public class APIConsumptionLibrariesDemoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ResttemplatedemoApplication.class, args);
+		SpringApplication.run(APIConsumptionLibrariesDemoApplication.class, args);
 	}
 
 	@Bean

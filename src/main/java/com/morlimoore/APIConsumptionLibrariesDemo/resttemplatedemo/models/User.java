@@ -1,4 +1,4 @@
-package com.morlimoore.resttemplatedemo.models;
+package com.morlimoore.APIConsumptionLibrariesDemo.resttemplatedemo.models;
 
 import lombok.Data;
 
