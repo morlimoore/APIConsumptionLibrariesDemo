@@ -1,6 +1,6 @@
-package com.morlimoore.APIConsumptionLibrariesDemo.resttemplatedemo.controllers;
+package com.morlimoore.APIConsumptionLibrariesDemo.RestTemplate.controllers;
 
-import com.morlimoore.APIConsumptionLibrariesDemo.resttemplatedemo.models.User;
+import com.morlimoore.APIConsumptionLibrariesDemo.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Arrays;
 
 @RestController
-public class ConsumeWebService {
+public class RestTemplateController {
 
     private final String BASE_URL = "http://localhost:8080/api/v1/users";
     HttpHeaders headers = new HttpHeaders();
