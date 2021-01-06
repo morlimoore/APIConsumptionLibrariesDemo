@@ -2,14 +2,15 @@ package com.morlimoore.APIConsumptionLibrariesDemo.RestTemplate.controllers;
 
 import com.morlimoore.APIConsumptionLibrariesDemo.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import javax.validation.Valid;
 import java.util.Arrays;
+
+import static com.morlimoore.APIConsumptionLibrariesDemo.utils.ResponseUtil.createResponse;
 
 @RestController
 public class RestTemplateController {
@@ -21,38 +22,46 @@ public class RestTemplateController {
     RestTemplate restTemplate;
 
     //Using the GET method
-    @RequestMapping("get/users")
-    public String getUsers() {
+    @RequestMapping(value = "resttemplate/get/users", method = RequestMethod.GET)
+    public ResponseEntity<String> getUsers() {
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<String> entity = new HttpEntity<>(headers);
         String response = restTemplate.exchange(BASE_URL + "/all", HttpMethod.GET, entity, String.class).getBody();
-        return response;
+        return createResponse(HttpStatus.OK, response);
     }
 
     //Using the POST method
-    @RequestMapping(value = "post/user", method = RequestMethod.POST)
-    public String postUser(@RequestBody User user) {
+    @RequestMapping(value = "resttemplate/post/user", method = RequestMethod.POST)
+    public ResponseEntity<String> postUser(@RequestBody @Valid User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return createResponse(HttpStatus.BAD_REQUEST,
+                    bindingResult.getFieldError().getDefaultMessage());
+
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<User> entity = new HttpEntity<>(user, headers);
         String response = restTemplate.exchange(BASE_URL + "/add", HttpMethod.POST, entity, String.class).getBody();
-        return response;
+        return createResponse(HttpStatus.CREATED, response);
     }
 
     //Using the PUT method
-    @RequestMapping(value = "update/{id}", method = RequestMethod.PUT)
-    public String updateUser(@PathVariable("id") String id, @RequestBody User user) {
+    @RequestMapping(value = "resttemplate/update/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateUser(@PathVariable("id") String id, @RequestBody @Valid User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return createResponse(HttpStatus.BAD_REQUEST,
+                    bindingResult.getFieldError().getDefaultMessage());
+
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<User> entity = new HttpEntity<>(user, headers);
         String response = restTemplate.exchange(BASE_URL + "/update/" + id, HttpMethod.PUT, entity, String.class).getBody();
-        return response;
+        return createResponse(HttpStatus.OK, response);
     }
 
     //Using the DELETE method
-    @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
-    public String deleteUser(@PathVariable("id") String id) {
+    @RequestMapping(value = "resttemplate/delete/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteUser(@PathVariable("id") String id) {
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<User> entity = new HttpEntity<>(headers);
         String response = restTemplate.exchange(BASE_URL + "/delete/" + id, HttpMethod.DELETE, entity, String.class).getBody();
-        return response;
+        return createResponse(HttpStatus.OK, response);
     }
 }
